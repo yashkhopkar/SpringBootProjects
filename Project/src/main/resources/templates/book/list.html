@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Books</title>
+    <style>
+
+        .white-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div th:include="@{fragments/navbar}"></div>
+<div class="container mt-5">
+    <h1 class="text-white">Book List</h1>
+    <div class="white-card">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Genre</th>
+                    <th>Available</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="book : ${books}">
+                    <td th:text="${book.title}"></td>
+                    <td th:text="${book.author}"></td>
+                    <td th:text="${book.genre}"></td>
+                    <td th:text="${book.isAvailable ? 'Yes' : 'No'}"></td>
+                    <td>
+                        <a class="btn btn-primary" th:href="@{'/books/edit/' + ${book.id}}">Edit</a>
+                        <a class="btn btn-danger" th:href="@{'/books/delete/' + ${book.id}}">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a class="btn btn-success" href="/books/add">Add New Book</a>
+    </div>
+</div>
+
+<!-- Include Bootstrap JS (Optional) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<div th:include="@{fragments/footer}"></div>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Book List</title>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div th:include="@{fragments/navbar}"></div>
+    <div class="container mt-4">
+        <h1 class="mb-4">Books List</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Genre</th>
+                    <th>Available</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Loop through books and display each book -->
+                <th:block th:each="book : ${books}">
+                    <tr>
+                        <td th:text="${book.title}"></td>
+                        <td th:text="${book.author}"></td>
+                        <td th:text="${book.genre}"></td>
+                        <td th:text="${book.isAvailable ? 'Available' : 'Not Available'}"></td>
+                        <td>
+                <!-- Add a button to borrow book -->
+                <a th:if="${book.isAvailable}" th:href="@{'/user/borrow/' + ${book.id}}">Borrow</a>
+                <span th:unless="${book.isAvailable}">Already Borrowed</span>
+                        </td>
+                    </tr>
+                </th:block>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Add Bootstrap JS scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script>
+        // Get all the "Borrow" buttons
+        const borrowButtons = document.querySelectorAll(".borrow-button");
+
+        // Add click event listener to each "Borrow" button
+        borrowButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                // Get the book ID from the data attribute
+                const bookId = button.getAttribute("data-book-id");
+
+                // Send a POST request to the server to borrow the book
+                fetch(`/books/borrow/${bookId}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Handle success, update UI or show a confirmation message
+                        console.log("Book borrowed successfully!");
+                        // You can refresh the page or update the UI as needed
+                    } else {
+                        // Handle error, show an error message to the user
+                        console.error("Error borrowing book");
+                    }
+                })
+                .catch(error => {
+                    console.error("An error occurred:", error);
+                });
+            });
+        });
+    </script>
+    <div th:include="@{fragments/footer}"></div>
+</body>
+</html>

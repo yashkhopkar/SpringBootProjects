@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Borrowed Records</title>
+</head>
+<body>
+    <h1>Borrowed Records</h1>
+    <a href="/borrow-records/borrow">Borrow Book</a>  <!-- Added this line -->
+    <table>
+        <thead>
+            <tr>
+                <th>Book ID</th>
+                <th>Member ID</th>
+                <th>Borrowed Date</th>
+                <th>Due Date</th>
+                <th>Return Date</th>
+                <th>Fine</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="record : ${borrowRecords}">
+                <td th:text="${record.bookId}"></td>
+                <td th:text="${record.memberId}"></td>
+                <td th:text="${record.borrowedDate}"></td>
+                <td th:text="${record.dueDate}"></td>
+                <td th:text="${record.returnDate}"></td>
+                <td th:text="${record.fine}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Borrow Book</title>
+</head>
+<body>
+    <h1>Borrow Book</h1>
+    <form th:action="@{/borrow-records/borrow}" method="post">
+        <div>
+            <label>Book ID:</label>
+            <input name="bookId" required placeholder="Enter Book ID" />
+        </div>
+        <div>
+            <label>Member ID:</label>
+            <input name="memberId" required placeholder="Enter Member ID" />
+        </div>
+        <div>
+            <button type="submit">Borrow</button>
+        </div>
+    </form>
+</body>
+</html>

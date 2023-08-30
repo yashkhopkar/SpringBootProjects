@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Reservation</title>
+</head>
+<body>
+    <h1>Add New Reservation</h1>
+    <form th:action="@{/reservations/add}" th:object="${reservation}" method="post">
+        <div>
+            <label>Book ID:</label>
+            <input th:field="*{bookId}" required minlength="1" maxlength="255" placeholder="Enter book ID" />
+            <span th:if="${#fields.hasErrors('bookId')}" th:errors="*{bookId}" class="error"></span>
+        </div>
+        <div>
+            <label>Member ID:</label>
+            <input th:field="*{memberId}" required minlength="1" maxlength="255" placeholder="Enter member ID" />
+            <span th:if="${#fields.hasErrors('memberId')}" th:errors="*{memberId}" class="error"></span>
+        </div>
+        <div>
+            <label>Reservation Date:</label>
+            <input type="date" th:field="*{reservationDate}" required />
+            <span th:if="${#fields.hasErrors('reservationDate')}" th:errors="*{reservationDate}" class="error"></span>
+        </div>
+        <div>
+            <button type="submit">Add</button>
+            <a href="/reservations">Cancel</a>
+        </div>
+    </form>
+</body>
+</html>
