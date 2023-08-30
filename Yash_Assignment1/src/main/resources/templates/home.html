@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Pet Records</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">Pets</a>
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/add">Add Pet</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container mt-3">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Breed</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pet : ${pets}">
+            <td th:text="${pet.name}"></td>
+            <td th:text="${pet.type}"></td>
+            <td th:text="${pet.breed}"></td>
+            <td>
+            	<a class="btn btn-primary" th:href="@{/edit/{id}(id=${pet.id})}">Edit</a>
+                <a class="btn btn-danger" th:href="@{/delete/{id}(id=${pet.id})}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer class="fixed-bottom bg-primary text-center">
+    <p>&copy; 2023 Pets</p>
+</footer>
+</body>
+</html>

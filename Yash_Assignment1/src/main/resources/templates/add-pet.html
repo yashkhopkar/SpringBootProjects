@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Pet</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">Pets</a>
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/add">Add Pet</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container mt-3">
+    <h2>Add Pet</h2>
+    <form th:action="@{/add}" th:object="${pet}" method="post">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" th:field="*{name}">
+        </div>
+        <div class="form-group">
+            <label for="type">Type</label>
+            <select class="form-control" id="type" th:field="*{type}">
+                <option th:each="petType : ${petTypes}" th:value="${petType}" th:text="${petType}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="breed">Breed</label>
+            <input type="text" class="form-control" id="breed" th:field="*{breed}">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<footer class="fixed-bottom bg-primary text-center">
+    <p>&copy; 2023 Pets</p>
+</footer>
+</body>
+</html>
